@@ -1,4 +1,3 @@
-version: "3.8"
 services:
   anythink-backend-node:
     build:  ./backend
@@ -33,26 +32,6 @@ services:
       - ./:/usr/src/
       - /usr/src/frontend/node_modules
     ports:
-      - "3001:3001"
-    depends_on:
-      - "anythink-backend-node"
-
-  mongodb-node:
-    container_name: mongodb-node
-    restart: always
-    image: mongo
-    logging:
-      driver: none
+      - 8000:8000
     volumes:
-      - ~/mongo/data:/data/db
-    ports:
-      - '27017:27017'
-
-  anythink-ack:
-    image: public.ecr.aws/v0a2l7y2/wilco/anythink-ack:latest
-    container_name: anythink-ack
-    environment:
-      - GITHUB_TOKEN=$GITHUB_TOKEN
-      - CODESPACE_NAME=$CODESPACE_NAME
-    depends_on:
-      - "anythink-frontend-react" 
+      - ./python-server/src:/app/src
