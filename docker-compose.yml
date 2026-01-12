@@ -56,18 +56,6 @@ services:
     depends_on:
       - "anythink-frontend-react" 
 
-  python-app:
-    image: python:3.9-slim
-    container_name: python-app
-    ports:
-      - "8000:8000"
-    environment:
-      - PORT=8000
-    volumes:
-      - ./python-server:/app
-    working_dir: /app
-    command: python -c "from http.server import HTTPServer, SimpleHTTPRequestHandler; HTTPServer(('0.0.0.0', 8000), SimpleHTTPRequestHandler).serve_forever()"
-
   node-app:
     build: ./node-server/express-server
     container_name: node-app

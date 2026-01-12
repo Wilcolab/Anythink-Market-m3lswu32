@@ -1,39 +1,49 @@
-# Python Server
+# Anythink Market
 
-This project contains a FastAPI server implemented in Python. It provides two routes for managing a task list.
+This project is a full-stack application with a Node.js backend, React frontend, MongoDB database, and an additional Node.js Express server for task management.
 
 ## Project Structure
 
 The project has the following files and directories:
 
-- `python-server/src/main.py`: This file contains the implementation of the FastAPI server with two routes. It handles adding a task to a list and retrieving the list.
-
-- `python-server/src/__init__.py`: This file is an empty file that marks the `src` directory as a Python package.
-
-- `python-server/requirements.txt`: This file lists the dependencies required for the FastAPI server and other dependencies.
-
-- `python-server/Dockerfile`: This file is used to build a Docker image for the FastAPI server. It specifies the base image, copies the source code into the image, installs the dependencies, and sets the command to run the server.
-
-- `docker-compose.yml`: This file is used to define and run multi-container Docker applications. It specifies the services to run, their configurations, and any dependencies between them.
+- `backend/`: Node.js backend server (port 3000) using Express and MongoDB.
+- `frontend/`: React frontend application (port 3001).
+- `node-server/express-server/`: Express server for task management (port 8001).
+- `python-server/`: Legacy Python server (no longer used).
+- `docker-compose.yml`: Defines and runs the multi-container Docker application.
 
 ## Getting Started
 
-To run the FastAPI server using Docker, follow these steps:
+To run the application using Docker, follow these steps:
 
-- Build and start the Docker containers by running the following command:
+1. Build and start the Docker containers:
 
-  ```shell
-  docker compose up
-  ```
+   ```shell
+   docker-compose up
+   ```
 
-  This command will build the Docker image for the FastAPI server and start the containers defined in the `docker-compose.yml` file.
+   This will start all services: backend, frontend, MongoDB, and the task management server.
 
-- The FastAPI server should now be running. You can access at port `8000`.
+2. Access the applications:
+   - Frontend: http://localhost:3001
+   - Backend API: http://localhost:3000
+   - Task Management API: http://localhost:8001
+   - MongoDB: localhost:27017
 
-## API Routes
+## Task Management API (Node Server)
 
-The FastAPI server provides the following API routes:
+The Express server on port 8001 provides the following API routes:
 
-- `POST /tasks`: Adds a task to the task list. The request body should contain the task details.
+- `GET /`: Returns "Hello World"
+- `POST /tasks`: Adds a task to the task list. Request body: `{"text": "task description"}`
+- `GET /tasks`: Retrieves the task list as JSON.
 
-- `GET /tasks`: Retrieves the task list.
+Example usage:
+
+```bash
+# Get tasks
+curl http://localhost:8001/tasks
+
+# Add a task
+curl -X POST http://localhost:8001/tasks -H "Content-Type: application/json" -d '{"text": "New task"}'
+```
